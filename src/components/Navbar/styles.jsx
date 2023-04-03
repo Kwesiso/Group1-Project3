@@ -10,6 +10,10 @@ export const NavbarStyled = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 768px) {
+    padding: var(--space-32) 0;
+  }
 `;
 
 export const NavContainer = styled.div`
@@ -20,6 +24,10 @@ export const NavContainer = styled.div`
   justify-content: space-between;
   padding: 0 var(--space-16);
   gap: var(--space-16);
+
+  @media (min-width: 768px) {
+    gap: var(--space-40);
+  }
 `;
 
 export const LogoContainer = styled.a`
@@ -27,10 +35,25 @@ export const LogoContainer = styled.a`
   height: 100%;
   display: flex;
   align-items: center;
+
+  @media (min-width: 768px) {
+    flex: none;
+  }
 `;
 
 export const Logo = styled.img`
   max-width: 100%;
+`;
+
+export const DesktopMenu = styled.div`
+  flex: 1;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
 `;
 
 export const MobileMenu = styled.div`
@@ -94,6 +117,13 @@ export const NavList = styled.ul`
   flex-direction: column;
   gap: var(--space-20);
   padding: 0 var(--space-16);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    padding: 0;
+    width: auto;
+    gap: var(--space-32);
+  }
 `;
 
 export const NavItem = styled.li`
@@ -102,6 +132,16 @@ export const NavItem = styled.li`
   font-size: var(--paragraph-large-sm);
   color: ${(props) =>
     props.active ? "var(--color-primary-1)" : "var(--color-neutral-700)"};
+
+  &:hover {
+    color: var(--color-primary-1);
+  }
+
+  @media (min-width: 768px) {
+    font-size: var(--paragraph-default-sm);
+    font-weight: 500;
+    padding: 0;
+  }
 `;
 
 export const Container = styled.div`
@@ -109,6 +149,12 @@ export const Container = styled.div`
   height: 10rem;
   display: flex;
   border-top: 1px solid var(--color-neutral-200);
+
+  @media (min-width: 768px) {
+    height: 100%;
+    border: none;
+    width: auto;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -123,5 +169,11 @@ export const ButtonContainer = styled.div`
 
   @media (min-width: 640px) {
     max-width: 19rem;
+  }
+
+  @media (min-width: 768px) {
+    max-width: none;
+    padding: 0;
+    width: auto;
   }
 `;
