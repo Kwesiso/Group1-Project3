@@ -10,17 +10,18 @@ export default createGlobalStyle`
     --color-neutral-500: #47505C;
     --color-neutral-400: #858C95;
     --color-neutral-300: #CED3D9;
+    --color-neutral-200: #E5E5EF;
     --color-neutral-100: #FAFAFC;
     --color-white: #FFFFFF;
       
     // Typography
     // Special text
     --display-1-sm: 80px;
-    --line-height-display-3: 94px;
+    --line-height-display-1: 94px;
     --display-1-lg: 94px;
 
     --display-2-sm: 68px;
-    --line-height-display-3: 76px;
+    --line-height-display-2: 76px;
     --display-2-lg: 76px;
 
     --display-3-sm: 32px;
@@ -29,15 +30,15 @@ export default createGlobalStyle`
 
     // Rich text
     --heading-h1-sm: 50px;
-    --line-height-h4: 70px;
+    --line-height-h1: 70px;
     --heading-h1-lg: 58px;
 
     --heading-h2-sm: 36px;
-    --line-height-h4: 48px;
+    --line-height-h2: 48px;
     --heading-h2-lg: 40px;
 
     --heading-h3-sm: 26px;
-    --line-height-h4: 32px;
+    --line-height-h3: 32px;
     --heading-h3-lg: 30px;
 
     --heading-h4-sm: 22px;
@@ -64,14 +65,17 @@ export default createGlobalStyle`
     --space-72: 72px;
     --space-56: 56px; 
     --space-48: 48px;
+    --space-40: 40px;
     --space-38: 38px;
+    --space-36: 36px;
     --space-34: 34px;
     --space-32: 32px;
     --space-24: 24px;
+    --space-22: 22px;
     --space-20: 20px;
     --space-18: 18px;
     --space-16: 16px;
-    --space10: 10px;
+    --space-10: 10px;
 
     // Max width
     --container-default-max-width: 1300px;
@@ -124,8 +128,9 @@ export default createGlobalStyle`
   }
 
   p {
-    font-size: var(--p-font-size);
-    line-height: var(--p-line-height);
+    font-size: var(--paragraph-default-sm);
+    line-height: var(--line-height-large-sm);
+    color: var(--color-neutral-500);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -135,9 +140,28 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
+    color: inherit;
   }
 
   li {
     list-style: none;
+  }
+
+  input {
+    border: none;
+    font-family: var(--font-family);
+    font-size: 1.25rem;
+    line-height: var(--line-height-large-sm);
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--border-radius-sm);
+    height: 4.3rem;
+    color: var(--color-neutral-600);
+    box-shadow: 0 20px 24px 0 rgba(21, 60, 245, 0.06),
+    0 5px 14px 0 rgba(5, 21, 46, 0.05);
+  }
+
+  input::placeholder {
+    color: var(--color-neutral-400);
   }
 `;
