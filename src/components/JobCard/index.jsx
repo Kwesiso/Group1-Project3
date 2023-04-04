@@ -1,7 +1,7 @@
 import React from "react";
-import { time } from "../../assets";
+import { logo_facebook, time } from "../../assets";
 import { Link } from "react-router-dom";
-import * as J from './styles'
+import * as J from "./styles";
 
 const JobCard = ({
   employer_website,
@@ -12,16 +12,21 @@ const JobCard = ({
   job_employment_type,
   job_posted_at_datetime_utc,
 }) => {
+  const d = new window.Date(
+    job_posted_at_datetime_utc?.slice(0, 10).split("-")
+  );
 
   return (
     <J.JobCardStyled>
       <J.JobCardContainer>
-        <J.LogoContainer href={employer_website}>
-          <J.Logo src={employer_logo} alt="logo" />
+        <J.LogoContainer href={employer_website} target="_blank">
+          {employer_logo && <J.Logo src={employer_logo} alt="logo" />}
         </J.LogoContainer>
 
         <J.ContentContainer>
-          <J.Company href={employer_website}>{employer_name}</J.Company>
+          <J.Company href={employer_website} target="_blank">
+            {employer_name}
+          </J.Company>
           <Link to={`jobs/${job_id}`}>
             <J.JobTitle>{job_title}</J.JobTitle>
           </Link>
@@ -33,7 +38,13 @@ const JobCard = ({
         </J.ContentContainer>
 
         <J.Footer>
-          <J.Date>{job_posted_at_datetime_utc?.slice(0, 10).split("-")}</J.Date>
+          <J.Date>
+            {d.toLocaleDateString("en-us", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </J.Date>
         </J.Footer>
       </J.JobCardContainer>
     </J.JobCardStyled>
