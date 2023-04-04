@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as H from './styles'
 import { clients } from "../../constants";
 import Button from "../../components/Button";
 import { bubble_1, bubble_2, bubble_3, bubble_4, bubble_5, bubble_6, lookup } from "../../assets";
 
 const Homepage = () => {
+
+  const [isIntersecting, setIsIntersecting] = useState(false);
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+      },
+    );
+    
+    // Call observe
+    observer.observe(ref.current);
+    console.log(isIntersecting);
+
+    // Terminate the observation when the observed element unmounts
+    return () => observer.disconnect();
+  }, [isIntersecting]);
+
+  // Add css styles when intersecting for the first time
+  useEffect(() => {
+    if (isIntersecting) {
+      ref.current.querySelectorAll("div").forEach((el) => {
+        el.style.transform = ('translateY(0%)');
+        el.style.opacity = ('1');
+      });
+    }
+  }, [isIntersecting]);
+
   return (
     <H.HomepageStyled>
       <H.Hero>
-        <H.HeroContainer>
+        <H.HeroContainer ref={ref}>
           <H.TextContainer>
             <H.Header>
               <H.Span>Tech Jobs</H.Span> for Developers, Designers, and Marketers
@@ -35,7 +65,7 @@ const Homepage = () => {
             </H.SearchForm>
           </H.TextContainer>
 
-          <H.Clients>
+          <H.Clients isIntersecting={isIntersecting}>
             {clients.map((client) => (
               <H.ClientLogo key={client.id} src={client.logo} alt="client-logo" />
             ))}
@@ -49,6 +79,8 @@ const Homepage = () => {
         <H.Bubble src={bubble_5} alt="bubble5" top='30rem' right='-5rem' />
         <H.Bubble src={bubble_6} alt="bubble6" top='44rem' right='21rem' />
       </H.Hero>
+
+      <div style={{height: '1000px'}} />
     </H.HomepageStyled>
   );
 };
