@@ -9,12 +9,16 @@ export const HomepageStyled = styled.main`
 
 export const Hero = styled.section`
   width: 100%;
-  padding: 7.5rem 0;
+  padding: 5rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    padding: 7.5rem 0;
+  }
 `;
 
 export const HeroContainer = styled.div`
