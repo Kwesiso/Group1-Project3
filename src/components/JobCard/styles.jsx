@@ -22,8 +22,17 @@ export const JobCardContainer = styled.div`
 `;
 
 export const LogoContainer = styled.a`
-  width: fit-content;
-  height: fit-content;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1.6rem;
+  box-shadow: 0 2px 6px 0 rgba(5, 21, 46, 0.06),
+    0 4px 8px 0 rgba(21, 60, 245, 0.04);
+
+  @media (min-width: 768px) {
+    width: 6.5rem;
+    height: 6.5rem;
+
+  }
 `;
 export const Logo = styled.img`
   width: 100%;
@@ -33,10 +42,11 @@ export const Logo = styled.img`
   box-shadow: 0 2px 6px 0 rgba(5, 21, 46, 0.06),
     0 4px 8px 0 rgba(21, 60, 245, 0.04);
 
-  width: 6rem;
+  min-width: 100%;
 
-  @media (min-width: 768px) {
-    width: 6.5rem;
+  &:before {
+    position: absolute;
+    z-index: -1;
   }
 `;
 
