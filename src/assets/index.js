@@ -10,6 +10,13 @@ import clients_logo_youtube from './clients/clients_logo_youtube.svg'
 import close from './icons/close.svg'
 import hamburger from './icons/hamburger.svg'
 import time from './icons/time.svg'
+import lookup from './icons/lookup.svg'
+import bubble_1 from './icons/bubble_1.svg'
+import bubble_2 from './icons/bubble_2.svg'
+import bubble_3 from './icons/bubble_3.svg'
+import bubble_4 from './icons/bubble_4.svg'
+import bubble_5 from './icons/bubble_5.svg'
+import bubble_6 from './icons/bubble_6.svg'
 import logo_facebook from './companies/logo_facebook.svg'
 import logo_google from './companies/logo_google.svg'
 import logo_instagram from './companies/logo_instagram.svg'
@@ -40,6 +47,13 @@ export {
     close,
     hamburger,
     time,
+    lookup,
+    bubble_1,
+    bubble_2,
+    bubble_3,
+    bubble_4,
+    bubble_5,
+    bubble_6,
     logo_facebook,
     logo_google,
     logo_instagram,
