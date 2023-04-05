@@ -78,11 +78,11 @@ export const testimonials = [
   {
     id: "1",
     testimonial:
-      "We've hired several qualified applicants who report first seeing the position on Jobs, and we'll definitely utilize your services again in future recruiting efforts. It's been great working with you!",
+      "We've hired several qualified applicants who report first seeing the position on Jobs. It's been great working with you!",
     logo: testimonial_logo_1,
     picture: testimonial_profile_pic_1,
     name: "Sophie Moore",
-    position: "UI Designer at Facebook",
+    position: "UI Designer at Webflow",
   },
   {
     id: "2",
@@ -91,7 +91,7 @@ export const testimonials = [
     logo: testimonial_logo_2,
     picture: testimonial_profile_pic_2,
     name: "Mark Norman",
-    position: "SEO Lead at Webflow",
+    position: "SEO Lead at Facebook",
   },
   {
     id: "3",
@@ -100,6 +100,6 @@ export const testimonials = [
     logo: testimonial_logo_3,
     picture: testimonial_profile_pic_3,
     name: "Edwin Collins",
-    position: "React Developer at Youtube",
+    position: "Developer at Youtube",
   },
 ];
