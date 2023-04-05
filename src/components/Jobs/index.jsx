@@ -5,6 +5,7 @@ import { searchJobs } from "../../constants/fetchFromApi";
 import { lookup } from "../../assets";
 import { featuredCompanies } from "../../constants/index";
 import Button from "../Button";
+import { ImSpinner2 } from "react-icons/im";
 
 export const JobsStyled = styled.section`
   width: 100%;
@@ -159,15 +160,37 @@ export const CompanyType = styled.p`
 
 export const ButtonContainer = styled.div`
   width: 100%;
-`
+`;
+
+export const LoadingSpinner = styled.div`
+  align-self: center;
+  width: 4rem;
+  text-align: center;
+  font-size: 3rem;
+  color: var(--color-neutral-300);
+  animation: rotating 3s linear infinite;
+
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch jobs
-  // useEffect(() => {
-  //   searchJobs("software developer", 1).then((data) => setJobs(data));
-  // }, []);
+  useEffect(() => {
+    searchJobs("software developer", 1).then((data) => {
+      setJobs(data);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <JobsStyled>
@@ -178,9 +201,13 @@ const Jobs = () => {
 
         <JobsPresentation>
           <ListContainer>
-            {jobs.map((job) => (
-              <JobCard key={job.job_id} {...job} />
-            ))}
+            {loading ? (
+              <LoadingSpinner>
+                <ImSpinner2 />
+              </LoadingSpinner>
+            ) : (
+              jobs.map((job) => <JobCard key={job.job_id} {...job} />)
+            )}
           </ListContainer>
 
           <AsideContainer>
@@ -213,14 +240,13 @@ const Jobs = () => {
         </JobsPresentation>
 
         <ButtonContainer>
-        <Button
-            type1='primary'
-            type2='large'
-            href='/jobs'
-            value='Browse all jobs'
+          <Button
+            type1="primary"
+            type2="large"
+            href="/jobs"
+            value="Browse all jobs"
           />
         </ButtonContainer>
-
       </JobsContainer>
     </JobsStyled>
   );
