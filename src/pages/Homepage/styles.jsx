@@ -50,8 +50,9 @@ export const TextContainer = styled.div`
   flex-direction: column;
   text-align: center;
   gap: var(--space-16);
-  transform: scale(${props => props.isIntersecting ? '100%' : '50%'});
-  opacity: ${props => props.isIntersecting ? '1' : '0'};
+  // transform: scale(${props => props.isIntersecting ? '100%' : '50%'});
+  transform: scale(50%);
+  opacity: 0;
   transition: all 0.3s ease 0.3s;
 `;
 

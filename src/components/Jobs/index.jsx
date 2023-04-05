@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import JobCard from "../JobCard";
 import { searchJobs } from "../../constants/fetchFromApi";
@@ -24,6 +24,9 @@ export const JobsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--space-56);
+  transform: translateY(50%);
+  opacity: 0;
+  transition: all 0.3s ease 0.3s;
 `;
 
 export const Heading = styled.h2`
@@ -180,21 +183,21 @@ export const LoadingSpinner = styled.div`
   }
 `;
 
-const Jobs = () => {
+const Jobs = ({ innerRef }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch jobs
-  useEffect(() => {
-    searchJobs("software developer", 1).then((data) => {
-      setJobs(data);
-      setLoading(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   searchJobs("software developer", 1).then((data) => {
+  //     setJobs(data);
+  //     setLoading(false);
+  //   });
+  // }, []);
 
   return (
     <JobsStyled>
-      <JobsContainer>
+      <JobsContainer ref={innerRef}>
         <Heading>
           Latest <Span>tech jobs</Span>
         </Heading>

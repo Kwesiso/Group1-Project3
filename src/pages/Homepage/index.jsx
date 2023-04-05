@@ -12,40 +12,70 @@ import {
   lookup,
 } from "../../assets";
 import Jobs from "../../components/Jobs";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 const Homepage = () => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  // const [isIntersecting, setIsIntersecting] = useState(false);
 
-  const ref = useRef(null);
+  // const ref = useRef(null);
+  // const ref2 = useRef(null);
+
+  // useEffect(() => {
+  //   const observerHero = new IntersectionObserver(([entry]) => {
+  //     setIsIntersecting(entry.isIntersecting);
+  //   });
+
+  //   const observerJobs = new IntersectionObserver(([entry]) => {
+  //     setIsIntersecting(entry.isIntersecting);
+  //   });
+
+  //   // Call observe
+  //   // observerHero.observe(ref.current);
+  //   observerJobs.observe(ref2.current);
+  //   console.log(isIntersecting);
+
+  //   // Terminate the observation when the observed element unmounts
+  //   return () => {observerHero.disconnect(); observerJobs.disconnect()};
+  // }, [isIntersecting]);
+
+  // // Add css styles when intersecting for the first time
+  // useEffect(() => {
+  //   if (isIntersecting) {
+  //     ref2.current.querySelectorAll("div").forEach((el) => {
+  //       el.style.transform = "translateY(0%)";
+  //       el.style.opacity = "1";
+  //     });
+  //   }
+  // }, [isIntersecting]);
+
+  const targets = useRef(new Set());
+
+  const [entries, setObservedNodes] = useIntersectionObserver({
+    // threshold: 1
+  });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
-    });
+    setObservedNodes(() => ([...targets.current]));
+  }, [setObservedNodes]);
 
-    // Call observe
-    observer.observe(ref.current);
-    // console.log(isIntersecting);
-
-    // Terminate the observation when the observed element unmounts
-    return () => observer.disconnect();
-  }, [isIntersecting]);
-
-  // Add css styles when intersecting for the first time
   useEffect(() => {
-    if (isIntersecting) {
-      ref.current.querySelectorAll("div").forEach((el) => {
-        el.style.transform = "translateY(0%)";
-        el.style.opacity = "1";
-      });
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.style.transform = "translateY(0%) scale(100%)";
+        entry.target.style.opacity = "1";
+
+        setObservedNodes(observedNodes => 
+          observedNodes.filter(node => node !== entry.target)
+        );
+      }
     }
-  }, [isIntersecting]);
+  }, [entries, setObservedNodes]);
 
   return (
     <H.HomepageStyled>
       <H.Hero>
-        <H.HeroContainer ref={ref}>
-          <H.TextContainer>
+        <H.HeroContainer>
+          <H.TextContainer ref={element => targets.current.add(element)}>
             <H.Header>
               <H.Span>Tech Jobs</H.Span> for Developers, Designers, and
               Marketers
@@ -72,7 +102,7 @@ const Homepage = () => {
             </H.SearchForm>
           </H.TextContainer>
 
-          <H.Clients isIntersecting={isIntersecting}>
+          <H.Clients ref={element => targets.current.add(element)}>
             {clients.map((client) => (
               <H.ClientLogo
                 key={client.id}
@@ -91,7 +121,7 @@ const Homepage = () => {
         <H.Bubble src={bubble_6} alt="bubble6" top="44rem" right="21rem" />
       </H.Hero>
 
-      <Jobs />
+      <Jobs innerRef={element => targets.current.add(element)} />
     </H.HomepageStyled>
   );
 };
