@@ -33,11 +33,12 @@ export default createGlobalStyle`
     --line-height-h1: 70px;
     --heading-h1-lg: 58px;
 
-    --heading-h2-sm: 36px;
-    --line-height-h2: 48px;
-    --heading-h2-lg: 40px;
+    --heading-h2-sm: 28px;
+    --line-height-h2-sm: 35px;
+    --heading-h2-lg: 32px;
+    --line-height-h2-sm: 40px;
 
-    --heading-h3-sm: 26px;
+    --heading-h3-sm: 24px;
     --line-height-h3: 32px;
     --heading-h3-lg: 30px;
 
@@ -135,7 +136,7 @@ export default createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     color: var(--color-neutral-700);
-    font-weight: 700;
+    font-weight: 800;
   }
 
   a {
@@ -162,6 +163,6 @@ export default createGlobalStyle`
   }
 
   input::placeholder {
-    color: var(--color-neutral-400);
+    color: var(--color-neutral-500);
   }
 `;
