@@ -3,6 +3,7 @@ import blog_image_2 from './blog/blog_image_2.jpg'
 import blog_image_3 from './blog/blog_image_3.jpg'
 import logo_large from './brand/logo_large.svg'
 import logo_small from './brand/logo_small.svg'
+import mountains from './brand/mountains.svg'
 import clients_logo_facebook from './clients/clients_logo_facebook.svg'
 import clients_logo_google from './clients/clients_logo_google.svg'
 import clients_logo_linkedin from './clients/clients_logo_linkedin.svg'
@@ -40,6 +41,7 @@ export {
     blog_image_3,
     logo_large,
     logo_small,
+    mountains,
     clients_logo_facebook,
     clients_logo_google,
     clients_logo_linkedin,
