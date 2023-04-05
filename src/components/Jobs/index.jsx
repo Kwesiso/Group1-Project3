@@ -157,6 +157,10 @@ export const CompanyType = styled.p`
   color: var(--color-neutral-400);
 `;
 
+export const ButtonContainer = styled.div`
+  width: 100%;
+`
+
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
 
@@ -207,6 +211,16 @@ const Jobs = () => {
             </FeaturedCompaniesContainer>
           </AsideContainer>
         </JobsPresentation>
+
+        <ButtonContainer>
+        <Button
+            type1='primary'
+            type2='large'
+            href='/jobs'
+            value='Browse all jobs'
+          />
+        </ButtonContainer>
+
       </JobsContainer>
     </JobsStyled>
   );
