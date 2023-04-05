@@ -90,7 +90,7 @@ const Homepage = () => {
       </H.Hero>
 
       <Jobs innerRef={(element) => targets.current.add(element)} />
-      <CTA />
+      <CTA innerRef={(element) => targets.current.add(element)} />
     </H.HomepageStyled>
   );
 };

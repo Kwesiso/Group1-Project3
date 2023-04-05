@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Button from "../Button";
-import { mountains } from "../../assets";
 import * as C from './styles'
 
-const CTA = () => {
+const CTA = ({ innerRef }) => {
   const [input, setInput] = useState("");
   const [message, setMessage] = useState("");
 
@@ -23,7 +22,7 @@ const CTA = () => {
 
   return (
     <C.CTAStyled>
-      <C.CTAContainer>
+      <C.CTAContainer ref={innerRef}>
         <C.CTAContent>
           <C.TextContainer>
             <C.Heading>Find your next great opportunity!</C.Heading>

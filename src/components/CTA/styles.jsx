@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mountains } from "../../assets";
 
 export const CTAStyled = styled.section`
   width: 100%;
@@ -22,14 +23,9 @@ export const CTAContainer = styled.div`
   width: 100%;
   max-width: var(--container-default-max-width);
   padding: 0 var(--space-16);
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: var(--space-24);
-
-  //   @media (min-width: 768px) {
-  //     flex-direction: row;
-  //     align-items: center;
-  //   }
+  transform: translateY(50%);
+  opacity: 0;
+  transition: all 0.3s ease;
 `;
 export const CTAContent = styled.div`
   width: 100%;
