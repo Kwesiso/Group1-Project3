@@ -13,41 +13,9 @@ import {
 } from "../../assets";
 import Jobs from "../../components/Jobs";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import CTA from "../../components/CTA";
 
 const Homepage = () => {
-  // const [isIntersecting, setIsIntersecting] = useState(false);
-
-  // const ref = useRef(null);
-  // const ref2 = useRef(null);
-
-  // useEffect(() => {
-  //   const observerHero = new IntersectionObserver(([entry]) => {
-  //     setIsIntersecting(entry.isIntersecting);
-  //   });
-
-  //   const observerJobs = new IntersectionObserver(([entry]) => {
-  //     setIsIntersecting(entry.isIntersecting);
-  //   });
-
-  //   // Call observe
-  //   // observerHero.observe(ref.current);
-  //   observerJobs.observe(ref2.current);
-  //   console.log(isIntersecting);
-
-  //   // Terminate the observation when the observed element unmounts
-  //   return () => {observerHero.disconnect(); observerJobs.disconnect()};
-  // }, [isIntersecting]);
-
-  // // Add css styles when intersecting for the first time
-  // useEffect(() => {
-  //   if (isIntersecting) {
-  //     ref2.current.querySelectorAll("div").forEach((el) => {
-  //       el.style.transform = "translateY(0%)";
-  //       el.style.opacity = "1";
-  //     });
-  //   }
-  // }, [isIntersecting]);
-
   const targets = useRef(new Set());
 
   const [entries, setObservedNodes] = useIntersectionObserver({
@@ -55,7 +23,7 @@ const Homepage = () => {
   });
 
   useEffect(() => {
-    setObservedNodes(() => ([...targets.current]));
+    setObservedNodes(() => [...targets.current]);
   }, [setObservedNodes]);
 
   useEffect(() => {
@@ -64,8 +32,8 @@ const Homepage = () => {
         entry.target.style.transform = "translateY(0%) scale(100%)";
         entry.target.style.opacity = "1";
 
-        setObservedNodes(observedNodes => 
-          observedNodes.filter(node => node !== entry.target)
+        setObservedNodes((observedNodes) =>
+          observedNodes.filter((node) => node !== entry.target)
         );
       }
     }
@@ -75,7 +43,7 @@ const Homepage = () => {
     <H.HomepageStyled>
       <H.Hero>
         <H.HeroContainer>
-          <H.TextContainer ref={element => targets.current.add(element)}>
+          <H.TextContainer ref={(element) => targets.current.add(element)}>
             <H.Header>
               <H.Span>Tech Jobs</H.Span> for Developers, Designers, and
               Marketers
@@ -102,7 +70,7 @@ const Homepage = () => {
             </H.SearchForm>
           </H.TextContainer>
 
-          <H.Clients ref={element => targets.current.add(element)}>
+          <H.Clients ref={(element) => targets.current.add(element)}>
             {clients.map((client) => (
               <H.ClientLogo
                 key={client.id}
@@ -121,7 +89,8 @@ const Homepage = () => {
         <H.Bubble src={bubble_6} alt="bubble6" top="44rem" right="21rem" />
       </H.Hero>
 
-      <Jobs innerRef={element => targets.current.add(element)} />
+      <Jobs innerRef={(element) => targets.current.add(element)} />
+      <CTA />
     </H.HomepageStyled>
   );
 };
