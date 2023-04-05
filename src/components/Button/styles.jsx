@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const ButtonStyled = styled.a`
+export const ButtonStyled = styled.button`
   background: ${(props) =>
     props.type1 === "primary"
       ? "var(--color-primary-1)"
@@ -32,7 +32,7 @@ export const ButtonStyled = styled.a`
 
   text-transform: uppercase;
   line-height: 1.2rem;
-  border-radius: 4px;
+  border-radius: 7px;
   letter-spacing: 0.08em;
   text-align: center;
 
