@@ -165,4 +165,28 @@ export default createGlobalStyle`
   input::placeholder {
     color: var(--color-neutral-500);
   }
+
+  button {
+    border: none;
+  }
 `;
+
+export const Span = styled.span`
+  color: var(--color-primary-1);
+  position: relative;
+
+  &:after {
+    content: "";
+    width: 100%;
+    height: 0.2rem;
+    background: var(--color-primary-1);
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    @media (min-width: 768px) {
+      height: 0.3rem;
+    }
+  }
+`
