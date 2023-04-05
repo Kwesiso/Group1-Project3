@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import JobCard from "../JobCard";
 import { searchJobs } from "../../constants/fetchFromApi";
+import { lookup } from "../../assets";
+import { featuredCompanies } from "../../constants/index";
+import Button from "../Button";
 
 export const JobsStyled = styled.section`
   width: 100%;
@@ -57,6 +60,103 @@ export const ListContainer = styled.div`
   gap: var(--space-24);
 `;
 
+export const JobsPresentation = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+`;
+
+export const AsideContainer = styled.aside`
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    position: static;
+    max-width: 30%;
+  }
+`;
+
+export const SearchJobs = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  margin-bottom: var(--space-48);
+`;
+
+export const Title = styled.h3`
+  font-weight: 700;
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  background-image: url(${(props) => props.bg});
+  background-position: 1.25rem 50%;
+  background-size: auto;
+  background-repeat: no-repeat;
+  padding-left: var(--space-56);
+`;
+
+export const FeaturedCompaniesContainer = styled.div`
+  width: 100%:
+  box-shadow: 0 7px 8px 0 rgba(30, 54, 170, 0.08);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-40) var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  background: var(--color-white);
+  box-shadow: 0 7px 8px 0 rgba(30, 54, 170, 0.08);
+`;
+
+export const ContainerTitle = styled.h3`
+  width: 100%;
+  font-weight: 700;
+  font-size: var(--heading-h4-sm);
+  tex-tranform: uppercase;
+`;
+
+export const CompaniesList = styled.ul`
+  with: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+`;
+
+export const CompanyItem = styled.li`
+  width: 100%;
+  display: flex;
+  gap: var(--space-16);
+`;
+
+export const CompanyLogo = styled.img`
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px 0 rgba(5, 21, 46, 0.06),
+    0 4px 8px 0 rgba(21, 60, 245, 0.04);
+`;
+
+export const CompanyDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CompanyTitle = styled.h4`
+  font-weight: 700;
+`;
+
+export const CompanyType = styled.p`
+  font-size: 0.9rem;
+  line-height: 100%;
+  font-weight: 500;
+  color: var(--color-neutral-400);
+`;
+
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
 
@@ -72,11 +172,41 @@ const Jobs = () => {
           Latest <Span>tech jobs</Span>
         </Heading>
 
-        <ListContainer>
-          {jobs.map(job => (
-            <JobCard key={job.job_id} {...job} />
-          ))}
-        </ListContainer>
+        <JobsPresentation>
+          <ListContainer>
+            {jobs.map((job) => (
+              <JobCard key={job.job_id} {...job} />
+            ))}
+          </ListContainer>
+
+          <AsideContainer>
+            <SearchJobs>
+              <Title>Search jobs</Title>
+              <SearchInput
+                type="text"
+                placeholder="Search for jobs"
+                required={true}
+                maxLength="256"
+                bg={lookup}
+              />
+            </SearchJobs>
+
+            <FeaturedCompaniesContainer>
+              <ContainerTitle>Featured companies</ContainerTitle>
+              <CompaniesList>
+                {featuredCompanies.map((company) => (
+                  <CompanyItem key={company.id}>
+                    <CompanyLogo src={company.logo} alt="company-logo" />
+                    <CompanyDetails>
+                      <CompanyTitle>{company.title}</CompanyTitle>
+                      <CompanyType>{company.type}</CompanyType>
+                    </CompanyDetails>
+                  </CompanyItem>
+                ))}
+              </CompaniesList>
+            </FeaturedCompaniesContainer>
+          </AsideContainer>
+        </JobsPresentation>
       </JobsContainer>
     </JobsStyled>
   );
