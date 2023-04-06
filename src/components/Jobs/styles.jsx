@@ -19,7 +19,7 @@ export const JobsContainer = styled.div`
   gap: var(--space-56);
   transform: translateY(50%);
   opacity: 0;
-  transition: all 0.3s ease 0.3s;
+  transition: all 0.3s ease;
 `;
 
 export const Heading = styled.h2`
