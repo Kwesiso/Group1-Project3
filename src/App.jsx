@@ -6,6 +6,7 @@ import Homepage from './pages/Homepage'
 import Navbar from './components/Navbar';
 
 import styled from 'styled-components';
+import Footer from './components/Footer';
 
 const AppStyled = styled.div`
   width: 100vw;
@@ -29,6 +30,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Homepage />} />
         </Routes>
+
+        <Footer />
       </Router>
     </AppStyled>
   )

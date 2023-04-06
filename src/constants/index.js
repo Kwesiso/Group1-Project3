@@ -151,13 +151,13 @@ export const socialNav = [
     link: 'http://facebook.com/'
   },
   {
-    id: '1',
+    id: '2',
     title: 'Twitter',
     icon: socials_logo_twitter,
     link: 'http://twitter.com/'
   },
   {
-    id: '1',
+    id: '3',
     title: 'Instagram',
     icon: socials_logo_instagram,
     link: 'http://instagram.com/'
