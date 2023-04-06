@@ -1,28 +1,82 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import JobCard from "../JobCard";
 import { searchJobs } from "../../constants/fetchFromApi";
 import { lookup } from "../../assets";
 import { featuredCompanies } from "../../constants/index";
 import Button from "../Button";
 import { ImSpinner2 } from "react-icons/im";
-import * as J from './styles'
+import * as J from "./styles";
 
-const Jobs = ({ innerRef }) => {
+const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [jobsPage, setJobsPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("software developer");
+  
   // Fetch jobs
-  // useEffect(() => {
-  //   searchJobs("software developer", 1).then((data) => {
-  //     setJobs(data);
-  //     setLoading(false);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // searchJobs(searchTerm, jobsPage).then((data) => {
+    //   setJobs(data);
+    //   setLoading(false);
+    // });
+    window.scrollTo(0, 0)
+  }, []);
+
+  const handleJobsPage = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    document.getElementById('latest-tech-jobs').scrollIntoView();
+
+    if (e.target.id === "next") {
+      setJobsPage(jobsPage + 1);
+      console.log(jobsPage);
+
+      // searchJobs(searchTerm, jobsPage + 1).then((data) => {
+      //   setJobs((current) => [...current, ...data]);
+      //   console.log(jobs);
+      //   setLoading(false);
+      // });
+    } else if (e.target.id === "prev") {
+      setJobsPage(jobsPage - 1);
+
+      // setJobs((current) =>
+      //   current.filter((obj, idx) => {
+      //     return idx < current.length - 10;
+      //   })
+      // );
+      // setLoading(false);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    if (e.key === "Enter" && searchTerm.length !== 0) {
+      // If request comes from Homepage, redirect to JobsPage
+      if(inHomepage) {
+        navigate("/jobs");
+      }
+      setLoading(true);
+      document.getElementById('latest-tech-jobs').scrollIntoView();
+
+
+      // Reset jobs page number
+      setJobs(1);
+
+      // Search for matching jobs
+      // searchJobs(searchTerm, 1).then((data) => {
+      //   setJobs(data);
+      //   setLoading(false);
+      // });
+    }
+  };
 
   return (
     <J.JobsStyled>
       <J.JobsContainer ref={innerRef}>
-        <J.Heading>
+        <J.Heading id='latest-tech-jobs'>
           Latest <J.Span>tech jobs</J.Span>
         </J.Heading>
 
@@ -33,7 +87,9 @@ const Jobs = ({ innerRef }) => {
                 <ImSpinner2 />
               </J.LoadingSpinner>
             ) : (
-              jobs.map((job) => <JobCard key={job.job_id} {...job} />)
+              jobs
+                .slice(-10)
+                .map((job) => <JobCard key={job.job_id} {...job} />)
             )}
           </J.ListContainer>
 
@@ -46,6 +102,8 @@ const Jobs = ({ innerRef }) => {
                 required={true}
                 maxLength="256"
                 bg={lookup}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => handleSearchSubmit(e)}
               />
             </J.SearchJobs>
 
@@ -67,12 +125,42 @@ const Jobs = ({ innerRef }) => {
         </J.JobsPresentation>
 
         <J.ButtonContainer>
-          <Button
-            type1="primary"
-            type2="large"
-            href="/jobs"
-            value="Browse all jobs"
-          />
+          {inHomepage && (
+            <a href="/jobs">
+              <Button
+                type1="primary"
+                type2="large"
+                href="/jobs"
+                value="Browse all jobs"
+              />
+            </a>
+          )}
+
+          {/* Show prev button */}
+          {inJobsPage && jobsPage > 1 && (
+            <div onClick={(e) => handleJobsPage(e)}>
+              <Button
+                type1="primary"
+                type2="large"
+                href="/jobs"
+                value="Prev"
+                id="prev"
+              />
+            </div>
+          )}
+
+          {/* Show next button */}
+          {inJobsPage && jobsPage < 10 && (
+            <div id="next" onClick={(e) => handleJobsPage(e)}>
+              <Button
+                type1="primary"
+                type2="large"
+                href="/jobs"
+                value="Next"
+                id="next"
+              />
+            </div>
+          )}
         </J.ButtonContainer>
       </J.JobsContainer>
     </J.JobsStyled>

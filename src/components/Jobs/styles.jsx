@@ -8,6 +8,7 @@ export const JobsStyled = styled.section`
   padding-top: var(--space-56);
   padding-bottom: var(--space-72);
   background: var(--color-neutral-100);
+  overflow-anchor: none;
 `;
 
 export const JobsContainer = styled.div`
@@ -156,6 +157,8 @@ export const CompanyType = styled.p`
 
 export const ButtonContainer = styled.div`
   width: 100%;
+  display: flex;
+  gap: var(--space-24);
 `;
 
 export const LoadingSpinner = styled.div`
