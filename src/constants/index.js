@@ -13,6 +13,9 @@ import {
   testimonial_profile_pic_1,
   testimonial_profile_pic_2,
   testimonial_profile_pic_3,
+  socials_logo_facebook,
+  socials_logo_instagram,
+  socials_logo_twitter,
 } from "../assets";
 
 export const navLinks = [
@@ -103,3 +106,60 @@ export const testimonials = [
     position: "Developer at Youtube",
   },
 ];
+
+export const footerLists = [
+  {
+    id: "1",
+    title: "Menu",
+    links: ["Home", "About Us", "Jobs"],
+  },
+  {
+    id: "2",
+    title: "Follow Us",
+    links: ["Facebook", "Twitter", "Instagram"],
+    socialLogo: [
+      socials_logo_facebook,
+      socials_logo_twitter,
+      socials_logo_instagram,
+    ],
+  },
+];
+
+export const footerNav = [
+    {
+      id: "home",
+      title: "Home",
+      link: "/",
+    },
+    {
+      id: "about-us",
+      title: "About Us",
+      link: "/about",
+    },
+    {
+      id: "jobs",
+      title: "Jobs",
+      link: "/jobs",
+    },
+]
+
+export const socialNav = [
+  {
+    id: '1',
+    title: 'Facebook',
+    icon: socials_logo_facebook,
+    link: 'http://facebook.com/'
+  },
+  {
+    id: '1',
+    title: 'Twitter',
+    icon: socials_logo_twitter,
+    link: 'http://twitter.com/'
+  },
+  {
+    id: '1',
+    title: 'Instagram',
+    icon: socials_logo_instagram,
+    link: 'http://instagram.com/'
+  },
+]
