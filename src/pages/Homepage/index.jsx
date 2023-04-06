@@ -47,8 +47,7 @@ const Homepage = () => {
         <H.HeroContainer>
           <H.TextContainer ref={(element) => targets.current.add(element)}>
             <H.Header>
-              <Span>Tech Jobs</Span> for Developers, Designers, and
-              Marketers
+              <Span>Tech Jobs</Span> for Developers, Designers, and Marketers
             </H.Header>
             <H.Description>
               Jobs is a curated job board of the best jobs for developers,
@@ -91,10 +90,9 @@ const Homepage = () => {
         <H.Bubble src={bubble_6} alt="bubble6" top="44rem" right="21rem" />
       </H.Hero>
 
-      <Jobs innerRef={(element) => targets.current.add(element)} />
+      <Jobs innerRef={(element) => targets.current.add(element)} inHomepage />
       <CTA innerRef={(element) => targets.current.add(element)} />
       <Testimonials innerRef={(element) => targets.current.add(element)} />
-      
     </H.HomepageStyled>
   );
 };
