@@ -14,6 +14,8 @@ import {
 import Jobs from "../../components/Jobs";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import CTA from "../../components/CTA";
+import Testimonials from "../../components/Testimonials";
+import { Span } from "../../globals";
 
 const Homepage = () => {
   const targets = useRef(new Set());
@@ -45,7 +47,7 @@ const Homepage = () => {
         <H.HeroContainer>
           <H.TextContainer ref={(element) => targets.current.add(element)}>
             <H.Header>
-              <H.Span>Tech Jobs</H.Span> for Developers, Designers, and
+              <Span>Tech Jobs</Span> for Developers, Designers, and
               Marketers
             </H.Header>
             <H.Description>
@@ -91,6 +93,8 @@ const Homepage = () => {
 
       <Jobs innerRef={(element) => targets.current.add(element)} />
       <CTA innerRef={(element) => targets.current.add(element)} />
+      <Testimonials innerRef={(element) => targets.current.add(element)} />
+      
     </H.HomepageStyled>
   );
 };

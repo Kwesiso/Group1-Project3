@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Span } from "../../globals";
-import { testimonial_logo_1, testimonial_profile_pic_1 } from "../../assets";
-import { SlArrowLeft } from "react-icons/sl";
 import { testimonials } from "../../constants";
 
 export const TestimonialsStyled = styled.section`
@@ -23,9 +21,9 @@ export const TestimonialsContainer = styled.div`
 
   max-width: var(--container-small-max-width);
   padding: 0 var(--space-16);
-  //   transform: translateY(50%);
-  //   opacity: 0;
-  //   transition: all 0.3s ease;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: all 0.3s ease;
 
   @media (min-width: 1024px) {
     max-width: var(--container-default-max-width);
@@ -135,10 +133,10 @@ export const CompanyLogo = styled.img`
   width: 8rem;
 `;
 
-const Testimonials = () => {
+const Testimonials = ({ innerRef }) => {
   return (
     <TestimonialsStyled>
-      <TestimonialsContainer>
+      <TestimonialsContainer ref={innerRef}>
         <TestimonialsContent>
           <TestimonialsText>
             <TestimonialsHeader>
