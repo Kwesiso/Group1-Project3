@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import JobsPage from "./pages/JobsPage";
 import styled from "styled-components";
 import Footer from "./components/Footer";
+import JobPostPage from "./pages/JobPostPage";
 
 const AppStyled = styled.div`
   width: 100vw;
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/jobs" element={<JobsPage />} />
+          <Route path="/jobs/:id" element={<JobPostPage />} />
         </Routes>
 
         <Footer />
