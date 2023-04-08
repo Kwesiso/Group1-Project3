@@ -6,7 +6,7 @@ export const NavbarStyled = styled.nav`
   background: var(--color-white);
   box-shadow: 0 2px 30px 0 rgba(12, 53, 115, 0.1);
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,6 +93,7 @@ export const MobileNav = styled.div`
   top: 5rem;
   background: var(--color-white);
   box-shadow: 0 4px 10px 0 rgba(74, 58, 255, 0.18);
+  z-index: 1;
 
   transform: translateY(${(props) => (props.openMobileNav ? "0%" : "-100%")});
   visibility: ${(props) => (props.openMobileNav ? "visible" : "hidden")};
