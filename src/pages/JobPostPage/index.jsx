@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { jobDetails } from "../../constants/fetchFromApi";
 import JobCard from "../../components/JobCard";
 import { location, money, time } from "../../assets";
 import Button from "../../components/Button";
+import CTA from '../../components/CTA'
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import { Span } from "../../globals";
 
 export const JobsPostPageStyled = styled.main`
   width: 100%;
@@ -162,6 +165,7 @@ const JobPostPage = () => {
 
   const [jobData, setJobData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // useEffect(() => {
   //   jobDetails(id).then((data) => {
@@ -169,6 +173,29 @@ const JobPostPage = () => {
   //     setLoading(false);
   //   });
   // }, [id]);
+
+  const targets = useRef(new Set());
+
+  const [entries, setObservedNodes] = useIntersectionObserver({
+    // threshold: 1
+  });
+
+  useEffect(() => {
+    setObservedNodes(() => [...targets.current]);
+  }, [setObservedNodes]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.style.transform = "translateY(0%) scale(100%)";
+        entry.target.style.opacity = "1";
+
+        setObservedNodes((observedNodes) =>
+          observedNodes.filter((node) => node !== entry.target)
+        );
+      }
+    }
+  }, [entries, setObservedNodes]);
 
   return (
     <JobsPostPageStyled>
@@ -222,8 +249,11 @@ const JobPostPage = () => {
           )}
 
           <AsideContainer id="apply">
+            {!formSubmitted
+            ?
+            <>
             <FormTitle>Ready to apply for this job opening?</FormTitle>
-            <ApplyForm>
+            <ApplyForm onSubmit={(e) => {e.preventDefault(); setFormSubmitted(true)}}>
               <FormDiv>
                 <label htmlFor="full-name">
                   Full Name<Asterisk>*</Asterisk>
@@ -322,9 +352,14 @@ const JobPostPage = () => {
                 width="100%"
               />
             </ApplyForm>
+            </>
+            : <FormTitle>Thank you! Your submission has been <Span>received!</Span></FormTitle>
+          }
           </AsideContainer>
         </JobPresentationContainer>
       </JobPresentation>
+
+      <CTA innerRef={(element) => targets.current.add(element)} />
     </JobsPostPageStyled>
   );
 };
