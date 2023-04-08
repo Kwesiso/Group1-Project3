@@ -29,7 +29,7 @@ const JobCard = ({
           <J.Company href={employer_website} target="_blank">
             {employer_name}
           </J.Company>
-          <Link to={`jobs/${job_id}`}>
+          <Link to={`/jobs/${job_id}`}>
             <J.JobTitle inJobPostPage={inJobPostPage}>
               {job_title}
             </J.JobTitle>

@@ -42,12 +42,13 @@ const Navbar = () => {
 
             <N.Container>
               <N.ButtonContainer>
+                <a href='/jobs'>
                 <Button
                   type1="primary"
                   type2="default"
                   value="Browse Jobs"
-                  href="/browse"
                 />
+                </a>
               </N.ButtonContainer>
             </N.Container>
           </N.DesktopMenu>
