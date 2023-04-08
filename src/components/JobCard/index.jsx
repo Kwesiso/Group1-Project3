@@ -31,7 +31,7 @@ const JobCard = ({
           </J.Company>
           <Link to={`jobs/${job_id}`}>
             <J.JobTitle inJobPostPage={inJobPostPage}>
-              {job_title} Python Developer Python Developer
+              {job_title}
             </J.JobTitle>
           </Link>
 
