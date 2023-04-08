@@ -7,6 +7,7 @@ import { featuredCompanies } from "../../constants/index";
 import Button from "../Button";
 import { ImSpinner2 } from "react-icons/im";
 import * as J from "./styles";
+import { LoadingSpinner } from "../../globals";
 
 const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
   const navigate = useNavigate();
@@ -83,9 +84,9 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
         <J.JobsPresentation>
           <J.ListContainer>
             {loading ? (
-              <J.LoadingSpinner>
+              <LoadingSpinner>
                 <ImSpinner2 />
-              </J.LoadingSpinner>
+              </LoadingSpinner>
             ) : (
               jobs
                 .slice(-10)

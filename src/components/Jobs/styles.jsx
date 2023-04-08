@@ -160,21 +160,3 @@ export const ButtonContainer = styled.div`
   display: flex;
   gap: var(--space-24);
 `;
-
-export const LoadingSpinner = styled.div`
-  align-self: center;
-  width: 4rem;
-  text-align: center;
-  font-size: 3rem;
-  color: var(--color-neutral-300);
-  animation: rotating 3s linear infinite;
-
-  @keyframes rotating {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;

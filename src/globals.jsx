@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
@@ -36,7 +36,7 @@ export default createGlobalStyle`
     --heading-h2-sm: 28px;
     --line-height-h2-sm: 35px;
     --heading-h2-lg: 32px;
-    --line-height-h2-sm: 40px;
+    --line-height-h2-lg: 40px;
 
     --heading-h3-sm: 24px;
     --line-height-h3: 32px;
@@ -148,32 +148,55 @@ export default createGlobalStyle`
     list-style: none;
   }
 
-  input {
+  input, textarea {
     border: none;
     font-family: var(--font-family);
-    font-size: 1.25rem;
-    line-height: var(--line-height-large-sm);
+    font-size: var(--paragraph-default-sm);
+    line-height: var(--line-height-default-sm);
     font-weight: 500;
     padding: 0.5rem 1.5rem;
     border-radius: var(--border-radius-sm);
-    height: 4.3rem;
-    color: var(--color-neutral-600);
+    color: var(--color-neutral-700);
     box-shadow: 0 20px 24px 0 rgba(21, 60, 245, 0.06),
     0 5px 14px 0 rgba(5, 21, 46, 0.05);
+
+    &:hover {
+      box-shadow:0 4px 12px 0 rgba(21, 60, 245, 0.05), 0 2px 8px 0 rgba(5, 21, 46, 0.07);
+    }
   }
 
-  input::placeholder {
-    color: var(--color-neutral-500);
+  input {
+    height: 4.3rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-neutral-600);
+    font-size: var(--paragraph-default-sm);
+  }
+
+  textarea { 
+    min-height: 11rem;
   }
 
   button {
     border: none;
+  }
+
+  label {
+    font-size: var(--paragraph-default-sm);
+    line-height: var(--line-height-large-sm);
+    color: var(--color-neutral-700);
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 1rem;
   }
 `;
 
 export const Span = styled.span`
   color: var(--color-primary-1);
   position: relative;
+  display: inline-block;
 
   &:after {
     content: "";
@@ -182,7 +205,7 @@ export const Span = styled.span`
     background: var(--color-primary-1);
     display: inline-block;
     position: absolute;
-    bottom: 0;
+    bottom: -0.1rem;
     left: 0;
 
     @media (min-width: 768px) {
@@ -190,3 +213,21 @@ export const Span = styled.span`
     }
   }
 `
+
+export const LoadingSpinner = styled.div`
+  align-self: center;
+  width: 4rem;
+  text-align: center;
+  font-size: 3rem;
+  color: var(--color-neutral-300);
+  animation: rotating 3s linear infinite;
+
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
