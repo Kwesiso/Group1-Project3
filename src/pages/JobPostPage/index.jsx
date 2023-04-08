@@ -5,9 +5,10 @@ import { jobDetails } from "../../constants/fetchFromApi";
 import JobCard from "../../components/JobCard";
 import { location, money, time } from "../../assets";
 import Button from "../../components/Button";
-import CTA from '../../components/CTA'
+import CTA from "../../components/CTA";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import { Span } from "../../globals";
+import { LoadingSpinner, Span } from "../../globals";
+import { ImSpinner2 } from "react-icons/im";
 
 export const JobsPostPageStyled = styled.main`
   width: 100%;
@@ -50,6 +51,7 @@ export const JobCardExtended = styled.div`
   background: var(--color-white);
   padding: var(--space-48);
   gap: var(--space-32);
+  height: fit-content;
 `;
 
 export const StatsContainer = styled.div`
@@ -167,12 +169,12 @@ const JobPostPage = () => {
   const [loading, setLoading] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // useEffect(() => {
-  //   jobDetails(id).then((data) => {
-  //     setJobData(data);
-  //     setLoading(false);
-  //   });
-  // }, [id]);
+  useEffect(() => {
+    jobDetails(id).then((data) => {
+      setJobData(data);
+      setLoading(false);
+    });
+  }, [id]);
 
   const targets = useRef(new Set());
 
@@ -202,159 +204,173 @@ const JobPostPage = () => {
       <JobPresentation>
         <JobPresentationContainer>
           {/* Display job card */}
-          {!loading && jobData?.length > 0 && (
-            <JobCardExtended>
-              <JobCard {...jobData[0]} inJobPostPage />
-              <StatsContainer>
-                <Stat>
-                  <Icon src={time} alt="time" />
-                  <StatText>
-                    {jobData[0]?.job_employment_type || "N/A"}
-                  </StatText>
-                </Stat>
-                <Divider />
-                <Stat>
-                  <Icon src={location} alt="time" />
-                  <StatText>
-                    {jobData[0]?.job_city || "N/A"},{" "}
-                    {jobData[0]?.job_state || "N/A"}
-                  </StatText>
-                </Stat>
-                <Divider />
-                <Stat>
-                  <Icon src={money} alt="time" />
-                  <StatText>
-                    ${jobData[0]?.job_min_salary || "N/A"} -{" "}
-                    {jobData[0]?.job_max_salary || "N/A"} USD
-                  </StatText>
-                </Stat>
-              </StatsContainer>
+          <JobCardExtended>
+            {!loading && jobData?.length > 0 ? (
+              <>
+                <JobCard {...jobData[0]} inJobPostPage />
+                <StatsContainer>
+                  <Stat>
+                    <Icon src={time} alt="time" />
+                    <StatText>
+                      {jobData[0]?.job_employment_type || "N/A"}
+                    </StatText>
+                  </Stat>
+                  <Divider />
+                  <Stat>
+                    <Icon src={location} alt="time" />
+                    <StatText>
+                      {jobData[0]?.job_city || "N/A"},{" "}
+                      {jobData[0]?.job_state || "N/A"}
+                    </StatText>
+                  </Stat>
+                  <Divider />
+                  <Stat>
+                    <Icon src={money} alt="time" />
+                    <StatText>
+                      ${jobData[0]?.job_min_salary || "N/A"} -{" "}
+                      {jobData[0]?.job_max_salary || "N/A"} USD
+                    </StatText>
+                  </Stat>
+                </StatsContainer>
 
-              <JobDescriptionTitle>Job Description</JobDescriptionTitle>
-              <JobDescriptionText>
-                <pre
-                  style={{
-                    overflowX: "auto",
-                    whiteSpace: "pre-wrap",
-                    wordWrap: "break-word",
-                    fontFamily: "inherit",
-                    fontSize: "inherit",
-                    fontWeight: "500",
-                  }}
-                >
-                  {jobData[0]?.job_description}
-                </pre>
-              </JobDescriptionText>
-            </JobCardExtended>
-          )}
+                <JobDescriptionTitle>Job Description</JobDescriptionTitle>
+                <JobDescriptionText>
+                  <pre
+                    style={{
+                      overflowX: "auto",
+                      whiteSpace: "pre-wrap",
+                      wordWrap: "break-word",
+                      fontFamily: "inherit",
+                      fontSize: "inherit",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {jobData[0]?.job_description}
+                  </pre>
+                </JobDescriptionText>
+              </>
+            ) : (
+              <LoadingSpinner>
+                <ImSpinner2 />
+              </LoadingSpinner>
+            )}
+          </JobCardExtended>
 
           <AsideContainer id="apply">
-            {!formSubmitted
-            ?
-            <>
-            <FormTitle>Ready to apply for this job opening?</FormTitle>
-            <ApplyForm onSubmit={(e) => {e.preventDefault(); setFormSubmitted(true)}}>
-              <FormDiv>
-                <label htmlFor="full-name">
-                  Full Name<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormInput
-                  type="text"
-                  placeholder="Sophie Moore"
-                  name="full-name"
-                  required={true}
-                  maxLength="256"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="email">
-                  Email<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormInput
-                  type="email"
-                  placeholder="sophie@email.com"
-                  name="email"
-                  required={true}
-                  maxLength="256"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="phone-number">
-                  Phone Number<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormInput
-                  type="text"
-                  placeholder="(123) 456-7890"
-                  name="phone-number"
-                  required={true}
-                  maxLength="256"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="job-category">
-                  Job Category<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormInput
-                  type="text"
-                  placeholder="Ex.: Development"
-                  name="job-category"
-                  required={true}
-                  maxLength="256"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="specialization">
-                  Specialization<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormInput
-                  type="text"
-                  placeholder="Ex.: Frontend"
-                  name="specialization"
-                  required={true}
-                  maxLength="256"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="skills">
-                  Skills<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormTextArea
-                  placeholder="Skill 1, Skill 2, Skill 3..."
-                  name="skills"
-                  required={true}
-                  maxLength="5000"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="resume">
-                  Resume<Asterisk>*</Asterisk>
-                </label>
-                <ApplyFormInput
-                  type="text"
-                  placeholder="Resume or Portfolio Link"
-                  name="resume"
-                  required={true}
-                  maxLength="256"
-                />
-              </FormDiv>
-              <FormDiv>
-                <label htmlFor="notes">Notes</label>
-                <ApplyFormTextArea
-                  placeholder="If you would like to include any extra note or cover letter, please free to do it here."
-                  name="notes"
-                  maxLength="5000"
-                />
-              </FormDiv>
-              <Button
-                type1="primary"
-                type2="large"
-                value="Apply now"
-                width="100%"
-              />
-            </ApplyForm>
-            </>
-            : <FormTitle>Thank you! Your submission has been <Span>received!</Span></FormTitle>
-          }
+            {!formSubmitted ? (
+              <>
+                <FormTitle>Ready to apply for this job opening?</FormTitle>
+                <ApplyForm
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setFormSubmitted(true);
+                  }}
+                >
+                  <FormDiv>
+                    <label htmlFor="full-name">
+                      Full Name<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormInput
+                      type="text"
+                      placeholder="Sophie Moore"
+                      name="full-name"
+                      required={true}
+                      maxLength="256"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="email">
+                      Email<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormInput
+                      type="email"
+                      placeholder="sophie@email.com"
+                      name="email"
+                      required={true}
+                      maxLength="256"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="phone-number">
+                      Phone Number<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormInput
+                      type="text"
+                      placeholder="(123) 456-7890"
+                      name="phone-number"
+                      required={true}
+                      maxLength="256"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="job-category">
+                      Job Category<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormInput
+                      type="text"
+                      placeholder="Ex.: Development"
+                      name="job-category"
+                      required={true}
+                      maxLength="256"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="specialization">
+                      Specialization<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormInput
+                      type="text"
+                      placeholder="Ex.: Frontend"
+                      name="specialization"
+                      required={true}
+                      maxLength="256"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="skills">
+                      Skills<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormTextArea
+                      placeholder="Skill 1, Skill 2, Skill 3..."
+                      name="skills"
+                      required={true}
+                      maxLength="5000"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="resume">
+                      Resume<Asterisk>*</Asterisk>
+                    </label>
+                    <ApplyFormInput
+                      type="text"
+                      placeholder="Resume or Portfolio Link"
+                      name="resume"
+                      required={true}
+                      maxLength="256"
+                    />
+                  </FormDiv>
+                  <FormDiv>
+                    <label htmlFor="notes">Notes</label>
+                    <ApplyFormTextArea
+                      placeholder="If you would like to include any extra note or cover letter, please free to do it here."
+                      name="notes"
+                      maxLength="5000"
+                    />
+                  </FormDiv>
+                  <Button
+                    type1="primary"
+                    type2="large"
+                    value="Apply now"
+                    width="100%"
+                    style={{  }}
+                  />
+                </ApplyForm>
+              </>
+            ) : (
+              <FormTitle>
+                Thank you! Your submission has been <Span>received!</Span>
+              </FormTitle>
+            )}
           </AsideContainer>
         </JobPresentationContainer>
       </JobPresentation>
