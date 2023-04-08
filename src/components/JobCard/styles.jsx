@@ -6,13 +6,17 @@ export const JobCardStyled = styled.div`
 
 export const JobCardContainer = styled.div`
   width: 100%;
-  padding: var(--space-38) var(--space-24);
+  padding: ${(props) =>
+    props.inJobPostPage ? "0" : "var(--space-38) var(--space-24)"};
   display: flex;
   flex-direction: column;
   gap: var(--space-24);
   background: var(--color-white);
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 -2px 6px 0 rgba(5, 21, 46, 0.02), 0 6px 12px 0 rgba(21, 60, 245, 0.05), 0 2px 6px 0 rgba(5, 21, 46, 0.02);
+  box-shadow: ${(props) =>
+    props.inJobPostPage
+      ? "none"
+      : "0 -2px 6px 0 rgba(5, 21, 46, 0.02), 0 6px 12px 0 rgba(21, 60, 245, 0.05), 0 2px 6px 0 rgba(5, 21, 46, 0.02)"};
 }
 
   @media (min-width: 768px) {
@@ -31,7 +35,6 @@ export const LogoContainer = styled.a`
   @media (min-width: 768px) {
     width: 6.5rem;
     height: 6.5rem;
-
   }
 `;
 export const Logo = styled.img`
@@ -66,7 +69,8 @@ export const Company = styled.a`
 `;
 
 export const JobTitle = styled.h3`
-  font-size: var(--heading-h3-sm);
+  font-size: ${(props) =>
+    props.inJobPostPage ? "var(--heading-h3-lg)" : "var(--heading-h3-sm)"};
   line-height: var(--line-height-h3);
   font-weight: 800;
 `;
@@ -96,14 +100,24 @@ export const Type = styled.p`
 
 export const Footer = styled.div`
   width: 100%;
-  border-top: 0.08rem solid var(--color-neutral-200);
-  margin-top: var(--space-24);
-  padding-top: var(--space-32);
+  border-top: ${(props) =>
+    props.inJobPostPage ? "none" : "0.08rem solid var(--color-neutral-200)"};
+  margin-top: ${(props) => (props.inJobPostPage ? "none" : "var(--space-24)")};
+  padding-top: ${(props) => (props.inJobPostPage ? "none" : "var(--space-32)")};
+  display: ${(props) => (props.inJobPostPage ? "flex" : "block")};
+  flex-wrap: wrap;
+  gap: var(--space-24);
+  align-items: center;
+  justify-content: space-between;
 
   @media (min-width: 768px) {
     border: none;
     align-self: flex-end;
     width: fit-content;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-16);
+    align-self: ${(props) => (props.inJobPostPage ? "flex-start" : "")};
   }
 `;
 
