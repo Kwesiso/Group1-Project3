@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { jobDetails } from "../../constants/fetchFromApi";
 import JobCard from "../../components/JobCard";
-import { money, time } from "../../assets";
+import { location, money, time } from "../../assets";
+import Button from "../../components/Button";
 
 export const JobsPostPageStyled = styled.main`
   width: 100%;
@@ -26,6 +27,13 @@ export const JobPresentationContainer = styled.div`
   width: 100%;
   padding: 0 var(--space-16);
   max-width: var(--container-default-max-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
 `;
 
 export const JobCardExtended = styled.div`
@@ -34,7 +42,8 @@ export const JobCardExtended = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: var(--border-radius-lg);
-  box-shadow: 4px 4px 12px 0 rgba(21, 60, 245, 0.05), 0 2px 6px 0 rgba(5, 21, 46, 0.02);
+  box-shadow: 4px 4px 12px 0 rgba(21, 60, 245, 0.05),
+    0 2px 6px 0 rgba(5, 21, 46, 0.02);
   background: var(--color-white);
   padding: var(--space-48);
   gap: var(--space-32);
@@ -90,6 +99,64 @@ export const JobDescriptionText = styled.p`
   max-width: 100%;
 `;
 
+export const AsideContainer = styled.aside`
+  width: 100%;
+  height: fit-content;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 7px 8px 0 rgba(30, 54, 170, 0.08);
+  padding: var(--space-36) var(--space-24);
+  background: var(--color-white);
+
+  @media (min-width: 1024px) {
+    position: static;
+    max-width: 30%;
+  }
+`;
+
+export const FormTitle = styled.h3`
+  font-size: var(--heading-h3-sm);
+  margin-bottom: var(--space-24);
+`;
+
+export const ApplyForm = styled.form`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-36);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+`;
+
+export const Asterisk = styled.span`
+  color: red;
+`;
+
+export const ApplyFormInput = styled.input`
+  max-width: 100%;
+`;
+
+export const ApplyFormTextArea = styled.textarea`
+  max-width: 100%;
+`;
+
+export const FormDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    width: 45%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
+`;
+
 const JobPostPage = () => {
   const { id } = useParams();
 
@@ -114,12 +181,17 @@ const JobPostPage = () => {
               <StatsContainer>
                 <Stat>
                   <Icon src={time} alt="time" />
-                  <StatText>{jobData[0]?.job_employment_type}</StatText>
+                  <StatText>
+                    {jobData[0]?.job_employment_type || "N/A"}
+                  </StatText>
                 </Stat>
                 <Divider />
                 <Stat>
-                  <Icon src={time} alt="time" />
-                  <StatText>{jobData[0]?.job_city}, {jobData[0]?.job_state}</StatText>
+                  <Icon src={location} alt="time" />
+                  <StatText>
+                    {jobData[0]?.job_city || "N/A"},{" "}
+                    {jobData[0]?.job_state || "N/A"}
+                  </StatText>
                 </Stat>
                 <Divider />
                 <Stat>
@@ -140,7 +212,7 @@ const JobPostPage = () => {
                     wordWrap: "break-word",
                     fontFamily: "inherit",
                     fontSize: "inherit",
-                    fontWeight: '500'
+                    fontWeight: "500",
                   }}
                 >
                   {jobData[0]?.job_description}
@@ -148,6 +220,109 @@ const JobPostPage = () => {
               </JobDescriptionText>
             </JobCardExtended>
           )}
+
+          <AsideContainer id="apply">
+            <FormTitle>Ready to apply for this job opening?</FormTitle>
+            <ApplyForm>
+              <FormDiv>
+                <label htmlFor="full-name">
+                  Full Name<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormInput
+                  type="text"
+                  placeholder="Sophie Moore"
+                  name="full-name"
+                  required={true}
+                  maxLength="256"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="email">
+                  Email<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormInput
+                  type="email"
+                  placeholder="sophie@email.com"
+                  name="email"
+                  required={true}
+                  maxLength="256"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="phone-number">
+                  Phone Number<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormInput
+                  type="text"
+                  placeholder="(123) 456-7890"
+                  name="phone-number"
+                  required={true}
+                  maxLength="256"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="job-category">
+                  Job Category<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormInput
+                  type="text"
+                  placeholder="Ex.: Development"
+                  name="job-category"
+                  required={true}
+                  maxLength="256"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="specialization">
+                  Specialization<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormInput
+                  type="text"
+                  placeholder="Ex.: Frontend"
+                  name="specialization"
+                  required={true}
+                  maxLength="256"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="skills">
+                  Skills<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormTextArea
+                  placeholder="Skill 1, Skill 2, Skill 3..."
+                  name="skills"
+                  required={true}
+                  maxLength="5000"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="resume">
+                  Resume<Asterisk>*</Asterisk>
+                </label>
+                <ApplyFormInput
+                  type="text"
+                  placeholder="Resume or Portfolio Link"
+                  name="resume"
+                  required={true}
+                  maxLength="256"
+                />
+              </FormDiv>
+              <FormDiv>
+                <label htmlFor="notes">Notes</label>
+                <ApplyFormTextArea
+                  placeholder="If you would like to include any extra note or cover letter, please free to do it here."
+                  name="notes"
+                  maxLength="5000"
+                />
+              </FormDiv>
+              <Button
+                type1="primary"
+                type2="large"
+                value="Apply now"
+                width="100%"
+              />
+            </ApplyForm>
+          </AsideContainer>
         </JobPresentationContainer>
       </JobPresentation>
     </JobsPostPageStyled>
