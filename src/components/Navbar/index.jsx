@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { logo_large, hamburger, close } from "../../assets";
 import { navLinks } from "../../constants";
 import Button from "../Button";
 import * as N from "./styles";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");
+  const { id } = useParams();
+  console.log(id);
+  // useEffect(() => {
+  //   if(id === null) {
+  //     setActiveItem('Home')
+  //   } else if(id === 'about') {
+  //     setActiveItem('About Us')
+  //   }
+  // }, [])
 
   return (
     <>
@@ -30,24 +40,25 @@ const Navbar = () => {
           <N.DesktopMenu>
             <N.NavList>
               {navLinks.map((link) => (
-                <N.NavItem
-                  key={link.id}
-                  active={activeItem === link.title ? true : false}
-                  onClick={() => setActiveItem(link.title)}
-                >
-                  <Link to={link.link}>{link.title}</Link>
+                <N.NavItem key={link.id}>
+                  <NavLink
+                    to={link.link}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "var(--color-primary-1)" : "inherit",
+                      };
+                    }}
+                  >
+                    {link.title}
+                  </NavLink>
                 </N.NavItem>
               ))}
             </N.NavList>
 
             <N.Container>
               <N.ButtonContainer>
-                <a href='/jobs'>
-                <Button
-                  type1="primary"
-                  type2="default"
-                  value="Browse Jobs"
-                />
+                <a href="/jobs">
+                  <Button type1="primary" type2="default" value="Browse Jobs" />
                 </a>
               </N.ButtonContainer>
             </N.Container>
