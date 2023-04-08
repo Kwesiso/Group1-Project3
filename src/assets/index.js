@@ -12,6 +12,8 @@ import close from './icons/close.svg'
 import hamburger from './icons/hamburger.svg'
 import time from './icons/time.svg'
 import lookup from './icons/lookup.svg'
+import location from './icons/location.svg'
+import money from './icons/money.svg'
 import bubble_1 from './icons/bubble_1.svg'
 import bubble_2 from './icons/bubble_2.svg'
 import bubble_3 from './icons/bubble_3.svg'
@@ -50,6 +52,8 @@ export {
     hamburger,
     time,
     lookup,
+    location,
+    money,
     bubble_1,
     bubble_2,
     bubble_3,
