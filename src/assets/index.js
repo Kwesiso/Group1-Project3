@@ -1,6 +1,8 @@
 import blog_image_1 from './blog/blog_image_1.jpg'
 import blog_image_2 from './blog/blog_image_2.jpg'
 import blog_image_3 from './blog/blog_image_3.jpg'
+import team_1 from './brand/team_1.jpg'
+import team_2 from './brand/team_2.jpg'
 import logo_large from './brand/logo_large.svg'
 import logo_small from './brand/logo_small.svg'
 import mountains from './brand/mountains.svg'
@@ -43,6 +45,8 @@ export {
     blog_image_3,
     logo_large,
     logo_small,
+    team_1,
+    team_2,
     mountains,
     clients_logo_facebook,
     clients_logo_google,
