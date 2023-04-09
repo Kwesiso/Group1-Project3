@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import * as H from "./styles";
 import { clients } from "../../constants";
 import Button from "../../components/Button";
@@ -16,8 +16,13 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import CTA from "../../components/CTA";
 import Testimonials from "../../components/Testimonials";
 import { Span } from "../../globals";
+import { useNavigate } from "react-router-dom";
+import JobSearchContext from "../../context/JobSearchContext";
 
 const Homepage = () => {
+  const navigate = useNavigate();
+  const { query, setQuery } = useContext(JobSearchContext);
+
   const targets = useRef(new Set());
 
   const [entries, setObservedNodes] = useIntersectionObserver({
@@ -41,6 +46,19 @@ const Homepage = () => {
     }
   }, [entries, setObservedNodes]);
 
+  // When user submits query in Hero
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (e.target[0].value) {
+      // Save input value to context
+      setQuery(e.target[0].value);
+
+      // Redirect to JobsPage
+      navigate("/jobs");
+    }
+  };
+
   return (
     <H.HomepageStyled>
       <H.Hero>
@@ -54,7 +72,7 @@ const Homepage = () => {
               designers and marketers in the tech industry.
             </H.Description>
 
-            <H.SearchForm>
+            <H.SearchForm onSubmit={(e) => handleFormSubmit(e)}>
               <H.SearchInput
                 placeholder="Search for jobs"
                 maxlength="256"

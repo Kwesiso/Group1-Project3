@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import JobCard from "../JobCard";
 import { searchJobs } from "../../constants/fetchFromApi";
@@ -8,6 +8,7 @@ import Button from "../Button";
 import { ImSpinner2 } from "react-icons/im";
 import * as J from "./styles";
 import { LoadingSpinner } from "../../globals";
+import JobSearchContext from "../../context/JobSearchContext";
 
 const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
   const navigate = useNavigate();
@@ -15,30 +16,32 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
   const [loading, setLoading] = useState(true);
 
   const [jobsPage, setJobsPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("software developer");
-  
-  // Fetch jobs
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const { query, setQuery } = useContext(JobSearchContext);
+
+  // Fetch jobs when page loads using default query from context ('software developer')
   useEffect(() => {
-    // searchJobs(searchTerm, jobsPage).then((data) => {
+    // searchJobs(query, jobsPage).then((data) => {
     //   setJobs(data);
     //   setLoading(false);
     // });
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
+  // When user presses on Next or Prev button
   const handleJobsPage = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    document.getElementById('latest-tech-jobs').scrollIntoView();
+    window.scrollTo(0, 0);
 
     if (e.target.id === "next") {
       setJobsPage(jobsPage + 1);
-      console.log(jobsPage);
 
-      // searchJobs(searchTerm, jobsPage + 1).then((data) => {
+      // searchJobs(query, jobsPage + 1).then((data) => {
+      //   window.scrollTo(0, 0)
       //   setJobs((current) => [...current, ...data]);
-      //   console.log(jobs);
       //   setLoading(false);
       // });
     } else if (e.target.id === "prev") {
@@ -53,37 +56,41 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
     }
   };
 
+  // Fetch jobs using user input
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" && searchTerm.length !== 0) {
+      // Save searchTerm to context
+      setQuery(searchTerm);
+
       // If request comes from Homepage, redirect to JobsPage
-      if(inHomepage) {
+      if (inHomepage) {
         navigate("/jobs");
       }
-      setLoading(true);
-      document.getElementById('latest-tech-jobs').scrollIntoView();
 
+      setLoading(true);
+      document.getElementById("latest-tech-jobs").scrollIntoView();
 
       // Reset jobs page number
       setJobs(1);
 
-      // Search for matching jobs
-      // searchJobs(searchTerm, 1).then((data) => {
-      //   setJobs(data);
-      //   setLoading(false);
-      // });
+      // Search for matching jobs using the value saved in context
+      searchJobs(query, 1).then((data) => {
+        setJobs(data);
+        setLoading(false);
+      });
     }
   };
 
   return (
     <J.JobsStyled>
       <J.JobsContainer ref={innerRef}>
-        <J.Heading id='latest-tech-jobs'>
+        <J.Heading id="latest-tech-jobs">
           Latest <J.Span>tech jobs</J.Span>
         </J.Heading>
 
         <J.JobsPresentation>
           <J.ListContainer>
-            {loading ? (
+            {loading || jobs === undefined ? (
               <LoadingSpinner>
                 <ImSpinner2 />
               </LoadingSpinner>
@@ -140,26 +147,14 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
           {/* Show prev button */}
           {inJobsPage && jobsPage > 1 && (
             <div onClick={(e) => handleJobsPage(e)}>
-              <Button
-                type1="primary"
-                type2="large"
-                href="/jobs"
-                value="Prev"
-                id="prev"
-              />
+              <Button type1="primary" type2="large" value="Prev" id="prev" />
             </div>
           )}
 
           {/* Show next button */}
           {inJobsPage && jobsPage < 10 && (
-            <div id="next" onClick={(e) => handleJobsPage(e)}>
-              <Button
-                type1="primary"
-                type2="large"
-                href="/jobs"
-                value="Next"
-                id="next"
-              />
+            <div onClick={(e) => handleJobsPage(e)}>
+              <Button type1="primary" type2="large" value="Next" id="next" />
             </div>
           )}
         </J.ButtonContainer>
