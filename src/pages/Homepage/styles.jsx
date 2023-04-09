@@ -58,7 +58,7 @@ export const TextContainer = styled.div`
 
 export const Header = styled.h1`
   font-size: var(--display-3-sm);
-  line-height: var(--line-height-h2);
+  line-height: var(--line-height-h2-lg);
   font-weight: 800;
 
   @media (min-width: 768px) {

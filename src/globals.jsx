@@ -200,7 +200,7 @@ export const Span = styled.span`
 
   &:after {
     content: "";
-    width: 100%;
+    width: ${props => props.noLine ? '0%' : '100%'};
     height: 0.2rem;
     background: var(--color-primary-1);
     display: inline-block;
