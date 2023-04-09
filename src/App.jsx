@@ -8,6 +8,7 @@ import JobsPage from "./pages/JobsPage";
 import styled from "styled-components";
 import Footer from "./components/Footer";
 import JobPostPage from "./pages/JobPostPage";
+import { JobSearchProvider } from "./context/JobSearchContext";
 
 const AppStyled = styled.div`
   width: 100vw;
@@ -24,17 +25,18 @@ function App() {
   return (
     <AppStyled>
       <GlobalStyle />
-
       <Router>
-        <Navbar />
+        <JobSearchProvider>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/jobs" element={<JobsPage />} />
-          <Route path="/jobs/:id" element={<JobPostPage />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/jobs/:id" element={<JobPostPage />} />
+          </Routes>
 
-        <Footer />
+          <Footer />
+        </JobSearchProvider>
       </Router>
     </AppStyled>
   );
