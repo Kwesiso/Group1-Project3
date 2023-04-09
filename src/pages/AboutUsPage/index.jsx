@@ -1,134 +1,139 @@
 import React from "react";
 import { Span } from "../../globals";
-import styled from "styled-components";
-
-export const AboutUsPageStyled = styled.main`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const Hero = styled.section`
-  width: 100%;
-  padding: 5rem 0 7.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-
-  @media (min-width: 768px) {
-    // padding: 7.5rem 0;
-  }
-`;
-
-export const HeroContainer = styled.div`
-  width: 100%;
-  padding: 0 var(--space-16);
-  max-width: var(--container-default-max-width);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-24);
-
-  @media (min-width: 768px) {
-    gap: var(--space-36);
-  }
-`;
-
-export const Header = styled.h1`
-  font-size: var(--display-3-sm);
-  line-height: var(--line-height-h2);
-  font-weight: 800;
-
-  @media (min-width: 768px) {
-    font-size: var(--heading-h1-sm);
-    line-height: var(--line-height-h1);
-  }
-`;
-
-export const Description = styled.p`
-  text-align: center;
-  max-width: 950px;
-  font-weight: 500;
-
-  @media (min-width: 768px) {
-    font-size: var(--paragraph-default-lg);
-    // line-height: var(--line-height-h1);
-  }
-`
-
-export const Stats = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: var(--space-48);
-  margin-top: var(--space-48);
-`
-
-export const StatContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-16);
-  min-width: fit-content;
-
-  @media (min-width: 768px) {
-  }
-`
-
-export const StatTitle = styled.h2`
-  font-size: var(--heading-h1-sm);
-  line-height: var(--line-height-h1);
-
-  @media (min-width: 768px) {
-    font-size: var(--display-2-lg);
-  }
-`
-
-export const StatDescription = styled.p`
-  font-size: var(--paragraph-large-sm);
-  font-weight: 500;
-  text-align: center;
-`
+import Testimonials from "../../components/Testimonials";
+import CTA from "../../components/CTA";
+import { useRef } from "react";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import { useEffect } from "react";
+import {
+  team_1,
+  team_2,
+  logo_facebook,
+  logo_google,
+  logo_instagram,
+  logo_messenger,
+  logo_twitter,
+  logo_youtube,
+} from "../../assets";
+import * as A from "./styles";
 
 const AboutUsPage = () => {
+  const targets = useRef(new Set());
+
+  const [entries, setObservedNodes] = useIntersectionObserver({
+    // threshold: 1
+  });
+
+  useEffect(() => {
+    setObservedNodes(() => [...targets.current]);
+  }, [setObservedNodes]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.style.transform = "translateY(0%) scale(100%)";
+        entry.target.style.opacity = "1";
+
+        setObservedNodes((observedNodes) =>
+          observedNodes.filter((node) => node !== entry.target)
+        );
+      }
+    }
+  }, [entries, setObservedNodes]);
+
   return (
-    <AboutUsPageStyled>
-      <Hero>
-        <HeroContainer>
-          <Header>
+    <A.AboutUsPageStyled>
+      <A.Hero>
+        <A.HeroContainer ref={(element) => targets.current.add(element)}>
+          <A.Header>
             <Span>About</Span> Jobs
-          </Header>
-          <Description>
+          </A.Header>
+          <A.Description>
             As the fastest-growing online Job board, our mission is to help
             great individuals connect with great companies.
-          </Description>
-          <Stats>
-            <StatContainer>
-                <StatTitle>52<Span noLine>,</Span>015</StatTitle>
-                <StatDescription>Jobs posted</StatDescription>
-            </StatContainer>
-            <StatContainer>
-                <StatTitle>24<Span noLine>,</Span>325</StatTitle>
-                <StatDescription>Successful hires</StatDescription>
-            </StatContainer>
-            <StatContainer>
-                <StatTitle>1<Span noLine>,</Span>532</StatTitle>
-                <StatDescription>Verified companies</StatDescription>
-            </StatContainer>
-            <StatContainer>
-                <StatTitle>1<Span noLine>.</Span>2M</StatTitle>
-                <StatDescription>Monthly visitors</StatDescription>
-            </StatContainer>
-          </Stats>
-        </HeroContainer>
-      </Hero>
-    </AboutUsPageStyled>
+          </A.Description>
+          <A.Stats>
+            <A.StatContainer>
+              <A.StatTitle>
+                52<Span noLine>,</Span>015
+              </A.StatTitle>
+              <A.StatDescription>Jobs posted</A.StatDescription>
+            </A.StatContainer>
+            <A.StatContainer>
+              <A.StatTitle>
+                24<Span noLine>,</Span>325
+              </A.StatTitle>
+              <A.StatDescription>Successful hires</A.StatDescription>
+            </A.StatContainer>
+            <A.StatContainer>
+              <A.StatTitle>
+                1<Span noLine>,</Span>532
+              </A.StatTitle>
+              <A.StatDescription>Verified companies</A.StatDescription>
+            </A.StatContainer>
+            <A.StatContainer>
+              <A.StatTitle>
+                1<Span noLine>.</Span>2M
+              </A.StatTitle>
+              <A.StatDescription>Monthly visitors</A.StatDescription>
+            </A.StatContainer>
+          </A.Stats>
+        </A.HeroContainer>
+      </A.Hero>
+
+      <A.AboutUsSection parentRow>
+        <A.AboutUsContainer>
+          <A.TextContainer
+            ref={(element) => targets.current.add(element)}
+            parentRow
+          >
+            <A.TeamTitle>
+              Great companies <Span>trust in us</Span>
+            </A.TeamTitle>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rutrum
+              libero lectus nunc posuere egestas. Nulla quam volutpat, aliquam,
+              nulla integer massa ultrices amet massa.
+            </p>
+          </A.TextContainer>
+          <A.TextContainer
+            ref={(element) => targets.current.add(element)}
+            parentRow
+          >
+            <A.LogosContainer>
+              <A.Img src={logo_facebook} alt="logo-1" companyLogo />
+              <A.Img src={logo_instagram} alt="logo-2" companyLogo />
+              <A.Img src={logo_google} alt="logo-3" companyLogo />
+              <A.Img src={logo_messenger} alt="logo-4" companyLogo />
+              <A.Img src={logo_twitter} alt="logo-5" companyLogo />
+              <A.Img src={logo_youtube} alt="logo-6" companyLogo />
+            </A.LogosContainer>
+          </A.TextContainer>
+        </A.AboutUsContainer>
+      </A.AboutUsSection>
+
+      <A.AboutUsSection>
+        <A.TextContainer ref={(element) => targets.current.add(element)}>
+          <A.TeamTitle>
+            The team behind <Span>this mission</Span>
+          </A.TeamTitle>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rutrum
+            libero lectus nunc posuere egestas.
+          </p>
+        </A.TextContainer>
+        <A.TextContainer
+          imageContainer
+          ref={(element) => targets.current.add(element)}
+        >
+          <A.Img src={team_1} alt="team-1" />
+          <A.Img src={team_2} alt="team-2" />
+        </A.TextContainer>
+      </A.AboutUsSection>
+
+      <Testimonials innerRef={(element) => targets.current.add(element)} />
+      <CTA innerRef={(element) => targets.current.add(element)} />
+    </A.AboutUsPageStyled>
   );
 };
 
