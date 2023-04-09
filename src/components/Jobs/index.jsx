@@ -22,10 +22,10 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
 
   // Fetch jobs when page loads using default query from context ('software developer')
   useEffect(() => {
-    // searchJobs(query, jobsPage).then((data) => {
-    //   setJobs(data);
-    //   setLoading(false);
-    // });
+    searchJobs(query, jobsPage).then((data) => {
+      setJobs(data);
+      setLoading(false);
+    });
     window.scrollTo(0, 0);
   }, []);
 
@@ -39,20 +39,20 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
     if (e.target.id === "next") {
       setJobsPage(jobsPage + 1);
 
-      // searchJobs(query, jobsPage + 1).then((data) => {
-      //   window.scrollTo(0, 0)
-      //   setJobs((current) => [...current, ...data]);
-      //   setLoading(false);
-      // });
+      searchJobs(query, jobsPage + 1).then((data) => {
+        window.scrollTo(0, 0);
+        setJobs((current) => [...current, ...data]);
+        setLoading(false);
+      });
     } else if (e.target.id === "prev") {
       setJobsPage(jobsPage - 1);
 
-      // setJobs((current) =>
-      //   current.filter((obj, idx) => {
-      //     return idx < current.length - 10;
-      //   })
-      // );
-      // setLoading(false);
+      setJobs((current) =>
+        current.filter((obj, idx) => {
+          return idx < current.length - 10;
+        })
+      );
+      setLoading(false);
     }
   };
 
@@ -68,13 +68,14 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
       }
 
       setLoading(true);
-      document.getElementById("latest-tech-jobs").scrollIntoView();
+      window.scrollTo(0, 0);
 
       // Reset jobs page number
       setJobs(1);
 
       // Search for matching jobs using the value saved in context
-      searchJobs(query, 1).then((data) => {
+      searchJobs(searchTerm, 1).then((data) => {
+        window.scrollTo(0, 0);
         setJobs(data);
         setLoading(false);
       });
