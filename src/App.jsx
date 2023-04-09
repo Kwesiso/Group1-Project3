@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Footer from "./components/Footer";
 import JobPostPage from "./pages/JobPostPage";
 import { JobSearchProvider } from "./context/JobSearchContext";
+import AboutUsPage from "./pages/AboutUsPage";
 
 const AppStyled = styled.div`
   width: 100vw;
@@ -33,6 +34,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/jobs/:id" element={<JobPostPage />} />
+            <Route path="/about" element={<AboutUsPage />} />
           </Routes>
 
           <Footer />
