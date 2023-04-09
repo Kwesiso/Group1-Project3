@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Button from "../Button";
 import { footerNav, socialNav } from "../../constants";
 import { logo_small } from "../../assets";
-import * as F from './styles';
+import * as F from "./styles";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -26,7 +27,16 @@ const Footer = () => {
               <F.Heading>Menu</F.Heading>
               {footerNav.map((link) => (
                 <F.ListItem key={link.id}>
-                  <a href={link.link}>{link.title}</a>
+                  <NavLink
+                    to={link.link}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "var(--color-primary-1)" : "inherit",
+                      };
+                    }}
+                  >
+                    {link.title}
+                  </NavLink>
                 </F.ListItem>
               ))}
             </F.FooterList>
@@ -59,7 +69,8 @@ const Footer = () => {
             >
               {" "}
               BRIX Templates.
-            </a> Developed by Raluca Curt.
+            </a>{" "}
+            Developed by Raluca Curt.
           </p>
         </F.FooterBottom>
       </F.FooterContainer>

@@ -8,9 +8,8 @@ import { useEffect } from "react";
 
 const Navbar = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false);
-  const [activeItem, setActiveItem] = useState("Home");
   const { id } = useParams();
-  console.log(id);
+
   // useEffect(() => {
   //   if(id === null) {
   //     setActiveItem('Home')
@@ -70,12 +69,17 @@ const Navbar = () => {
         <N.MobileNavContainer openMobileNav={openMobileNav}>
           <N.NavList>
             {navLinks.map((link) => (
-              <N.NavItem
-                key={link.id}
-                active={activeItem === link.title ? true : false}
-                onClick={() => setActiveItem(link.title)}
-              >
-                <Link to={link.link}>{link.title}</Link>
+              <N.NavItem key={link.id}>
+                <NavLink
+                  to={link.link}
+                  style={({ isActive }) => {
+                    return {
+                      color: isActive ? "var(--color-primary-1)" : "inherit",
+                    };
+                  }}
+                >
+                  {link.title}
+                </NavLink>
               </N.NavItem>
             ))}
           </N.NavList>
