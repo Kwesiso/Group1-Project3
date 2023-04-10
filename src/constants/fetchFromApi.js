@@ -24,6 +24,6 @@ export const jobDetails = (jobId) => {
     options
   )
     .then((response) => response.json())
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => console.error(err));
 };
