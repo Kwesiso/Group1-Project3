@@ -58,6 +58,10 @@ const Homepage = () => {
       navigate("/jobs");
     }
   };
+  
+  useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
 
   return (
     <H.HomepageStyled>

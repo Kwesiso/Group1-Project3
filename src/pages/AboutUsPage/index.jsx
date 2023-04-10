@@ -41,6 +41,10 @@ const AboutUsPage = () => {
     }
   }, [entries, setObservedNodes]);
 
+  useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
+
   return (
     <A.AboutUsPageStyled>
       <A.Hero>

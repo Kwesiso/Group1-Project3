@@ -28,6 +28,10 @@ const JobsPage = () => {
     }
   }, [entries, setObservedNodes]);
 
+  useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
+
   return (
     <JobsPageStyled>
       <Jobs innerRef={(element) => targets.current.add(element)} inJobsPage />
