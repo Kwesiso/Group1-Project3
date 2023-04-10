@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import JobCard from "../JobCard";
 import { searchJobs } from "../../constants/fetchFromApi";
 import { lookup } from "../../assets";
@@ -135,14 +135,14 @@ const Jobs = ({ innerRef, inHomepage, inJobsPage }) => {
 
         <J.ButtonContainer>
           {inHomepage && (
-            <a href="/jobs">
+            <Link to={"/jobs"}>
               <Button
                 type1="primary"
                 type2="large"
                 href="/jobs"
                 value="Browse all jobs"
               />
-            </a>
+            </Link>
           )}
 
           {/* Show prev button */}

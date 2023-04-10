@@ -56,9 +56,11 @@ const Navbar = () => {
 
             <N.Container>
               <N.ButtonContainer>
-                <a href="/jobs">
+                {/* <a href="/jobs"> */}
+                <NavLink to={"/jobs"}>
                   <Button type1="primary" type2="default" value="Browse Jobs" />
-                </a>
+                </NavLink>
+                {/* </a> */}
               </N.ButtonContainer>
             </N.Container>
           </N.DesktopMenu>
@@ -86,13 +88,14 @@ const Navbar = () => {
 
           <N.Container>
             <N.ButtonContainer>
-              <Button
-                type1="primary"
-                type2="default"
-                value="Browse Jobs"
-                width="100%"
-                href="/browse"
-              />
+              <NavLink to={"/jobs"} style={{ width: '100%' }}>
+                <Button
+                  type1="primary"
+                  type2="default"
+                  value="Browse Jobs"
+                  width="100%"
+                />
+              </NavLink>
             </N.ButtonContainer>
           </N.Container>
         </N.MobileNavContainer>

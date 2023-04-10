@@ -4,7 +4,7 @@ import Button from "../Button";
 import { footerNav, socialNav } from "../../constants";
 import { logo_small } from "../../assets";
 import * as F from "./styles";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,9 +17,9 @@ const Footer = () => {
               Jobs is a curated job board of the best jobs for developers,
               designers and marketers in the tech industry.
             </p>
-            <a href="/jobs">
+            <Link to={"/jobs"}>
               <Button type1="primary" type2="default" value="Browse jobs" />
-            </a>
+            </Link>
           </F.TextContainer>
 
           <F.FooterListContainer>
@@ -57,9 +57,9 @@ const Footer = () => {
         </F.FooterContent>
 
         <F.FooterBottom>
-          <a href="/">
+        <Link to={"/jobs"}>
             <F.CompanyLogo src={logo_small} alt="company-logo" />
-          </a>
+          </Link>
           <p>
             © Copyright Jobs - Designed by{" "}
             <a
