@@ -68,9 +68,9 @@ const Footer = () => {
               style={{ color: "var(--color-primary-1)" }}
             >
               {" "}
-              BRIX Templates.
+              Goup1.
             </a>{" "}
-            Developed by Raluca Curt.
+            Developed by Kwesiso Tjale.
           </p>
         </F.FooterBottom>
       </F.FooterContainer>
